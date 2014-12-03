@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ww</title>
+    
+</head>
+<body onLoad="startmap()">
+
+
+<div id="map" style="width:100%;height:850px;"></div>
+
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=0507a4c65130963025b055d6249f0fb095715f7f"></script>
+
+
+<script>
+function drawMap(position) {
+
+var mapContainer = document.getElementById('map'), 
+    mapOption = {
+        center: new daum.maps.LatLng(position.coords.latitude,position.coords.longitude), 
+        level: 1
+    };
+var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 마커가 표시될 위치입니다
+var markerPosition  = new daum.maps.LatLng(position.coords.latitude,position.coords.longitude); 
+
+// 마커를 생성합니다
+var marker = new daum.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+}
+</script>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(drawMap);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function startmap() {
+	setInterval("getLocation()", 500);
+}
+</script>
+
+</body>
+</html>
